@@ -5,11 +5,9 @@ import Mazes
 import TileScan
 import HatActions
 
-
+hat_already_worn = False 
 
 while True:
-
-	hat_already_worn = False 
 
 	if (
 		Upgrades.maze_unlocked()
@@ -41,7 +39,9 @@ while True:
 			unlock(Unlocks.Pumpkins)
 		if not hat_already_worn:
 			HatActions.wear_hat(3)
-			hat_already_worn = True			
+			hat_already_worn = True
+		if HatActions.wear_hat(3):
+			print("Hat Already On!")
 
 	elif (
 		Upgrades.tree_unlocked() 
@@ -54,6 +54,9 @@ while True:
 		if not hat_already_worn:
 			HatActions.wear_hat(11)
 			hat_already_worn = True
+		if HatActions.hat_type_worn == 11:
+			#print("Hat Already On!")
+			pass	
 
 	elif (
 		Upgrades.carrot_unlocked() 
@@ -76,8 +79,6 @@ while True:
 			unlock(Unlocks.Grass)
 
 	else:		
-		#TileSelection.tile_selection(1)		
-
 		if TileSelection.is_even(get_pos_x()):
 	
 			if get_pos_y() in {0, 8, 12, 14}:

@@ -18,10 +18,14 @@ hat_type = [
 
 def wear_hat(index):
 	global hat_equipped
+	global hat_type_worn
 	if 0 <= index < len(hat_type):
 		change_hat(hat_type[index])
+		hat_type_worn = index
 		hat_equipped = 1
 	else:
 		print("Invalid hat index!")
 
+
+#print(hat_type_worn)
 #wear_hat(8)

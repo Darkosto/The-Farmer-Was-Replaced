@@ -13,7 +13,7 @@ while True:
 		Upgrades.maze_unlocked()
 		and num_items(Items.Gold) < 5000
 	):
-		Crops.maze(1)
+		Crops.maze()
 		if not hat_already_worn:
 			HatActions.wear_hat(5)
 			hat_already_worn = True
@@ -23,7 +23,7 @@ while True:
 		and num_items(Items.Power) > 4900
 		and num_items(Items.Power) < 5000
 	):
-		Crops.sunflower_and_tree(1)
+		Crops.sunflower_and_tree()
 		if not hat_already_worn:
 			HatActions.wear_hat(12)
 			hat_already_worn = True		
@@ -33,7 +33,7 @@ while True:
 		and Upgrades.pumpkin_cost() > num_items(Items.Carrot)
 		and Upgrades.carrot_plant_cost() * 20 > num_items(Items.Hay)
 	):
-		Crops.carrot(1)
+		Crops.carrot()
 		if Upgrades.pumpkin_cost() < num_items(Items.Carrot):
 			print("Unlocking Pumpkin Upgrade")
 			unlock(Unlocks.Pumpkins)
@@ -47,7 +47,7 @@ while True:
 		Upgrades.tree_unlocked() 
 		and Upgrades.tree_cost() > num_items(Items.Hay)
 	):	
-		Crops.grass(1)
+		Crops.grass()
 		if Upgrades.tree_cost() < num_items(Items.Hay):
 			print("Unlocking Tree Upgrade")
 			unlock(Unlocks.Trees)
@@ -62,7 +62,7 @@ while True:
 		Upgrades.carrot_unlocked() 
 		and Upgrades.carrot_cost() > num_items(Items.Wood)
 	):
-		Crops.tree_only(1)	
+		Crops.tree_only()	
 		if Upgrades.carrot_cost() < num_items(Items.Wood):
 			print("Unlocking Carrot Upgrade")
 			unlock(Unlocks.Carrots)
@@ -73,7 +73,7 @@ while True:
 	elif (
 		Upgrades.grass_cost() > num_items(Items.Wood)
 	):
-		Crops.tree_only(1)
+		Crops.tree_only()
 		if Upgrades.grass_cost() < num_items(Items.Wood):
 			print("Unlocking Grass Upgrade")
 			unlock(Unlocks.Grass)
@@ -82,24 +82,24 @@ while True:
 		if TileSelection.is_even(get_pos_x()):
 	
 			if get_pos_y() in {0, 8, 12, 14}:
-				Crops.tree(1)
+				Crops.tree()
 			if get_pos_y() in {1, 9, 11, 15, 16}:
-				Crops.grass(1)
+				Crops.grass()
 			if get_pos_y() in {2, 3, 10, 13}:
-				Crops.carrot(1)
+				Crops.carrot()
 			if get_pos_y() == 4:
-				Crops.sunflower(1)
+				Crops.sunflower()
 			if get_pos_y() in {5, 6, 7, 28, 29, 30, 31}:
-				Crops.pumpkin(1)				
+				Crops.pumpkin()				
 	
 		if TileSelection.is_odd(get_pos_x()):
 			if get_pos_y() in {0, 8, 11, 14, 16}:
-				Crops.grass(1)
+				Crops.grass()
 			if get_pos_y() in {1, 4}:
-				Crops.sunflower(1)	
+				Crops.sunflower()	
 			if get_pos_y() in {2, 9, 10, 12, 13}:
-				Crops.carrot(1)
+				Crops.carrot()
 			if get_pos_y() in {3, 8, 13, 15}:
-				Crops.tree(1)			
+				Crops.tree()			
 			if get_pos_y() in {5, 6, 7, 28, 29, 30, 31}:
-				Crops.pumpkin(1)
+				Crops.pumpkin()

@@ -5,15 +5,16 @@ import Mazes
 import TileScan
 import HatActions
 
-hat_already_worn = False 
+
 power_level = False
 
 while True:
+	hat_already_worn = False 	
 # Flags	
-	if not power_level and num_items(Items.Power) < 5000:
+	if not num_items(Items.Power) < 5000:
 		power_level = False
 
-	if power_level and num_items(Items.Power) > 10000:
+	if num_items(Items.Power) > 11500:
 		power_level = True
 
 
@@ -36,55 +37,62 @@ while True:
 			HatActions.wear_hat(12)
 			hat_already_worn = True		
 
-	elif (
-		Upgrades.pumpkin_unlocked()
-		and Upgrades.pumpkin_cost() > num_items(Items.Carrot)
-		and Upgrades.carrot_plant_cost() * 20 > num_items(Items.Hay)
-	):
-		Crops.carrot()
-		if Upgrades.pumpkin_cost() < num_items(Items.Carrot):
-			print("Unlocking Pumpkin Upgrade")
-			unlock(Unlocks.Pumpkins)
-		if not hat_already_worn:
-			HatActions.wear_hat(3)
-			hat_already_worn = True
-		if HatActions.wear_hat(3):
-			print("Hat Already On!")
+	elif True:
+		if Upgrades.lowest_upgrade == "GrassLevel":
+			Crops.tree_only()
+			if Upgrades.grass_cost() < num_items(Items.Wood):
+				print("Unlocking Grass Upgrade")
+				unlock(Unlocks.Grass)
+			if not hat_already_worn:
+				HatActions.wear_hat(10)
+				hat_already_worn = True			
 
-	elif (
-		Upgrades.tree_unlocked() 
-		and Upgrades.tree_cost() > num_items(Items.Hay)
-	):	
-		Crops.grass()
-		if Upgrades.tree_cost() < num_items(Items.Hay):
-			print("Unlocking Tree Upgrade")
-			unlock(Unlocks.Trees)
-		if not hat_already_worn:
-			HatActions.wear_hat(11)
-			hat_already_worn = True
-		if HatActions.hat_type_worn == 11:
-			#print("Hat Already On!")
-			pass	
+		elif (
+			Upgrades.lowest_upgrade == "PumpkinLevel"
+			and Upgrades.pumpkin_unlocked()
+			and Upgrades.pumpkin_cost() > num_items(Items.Carrot)
+			and Upgrades.carrot_plant_cost() * 20 < num_items(Items.Hay)
+		):
+			Crops.carrot()
+			if Upgrades.pumpkin_cost() < num_items(Items.Carrot):
+				print("Unlocking Pumpkin Upgrade")
+				unlock(Unlocks.Pumpkins)
+			if not hat_already_worn:
+				HatActions.wear_hat(3)
+				hat_already_worn = True
+			if HatActions.wear_hat(3):
+				print("Hat Already On!")
 
-	elif (
-		Upgrades.carrot_unlocked() 
-		and Upgrades.carrot_cost() > num_items(Items.Wood)
-	):
-		Crops.tree_only()	
-		if Upgrades.carrot_cost() < num_items(Items.Wood):
-			print("Unlocking Carrot Upgrade")
-			unlock(Unlocks.Carrots)
-		if not hat_already_worn:
-			HatActions.wear_hat(11)
-			hat_already_worn = True					
+		elif (
+			Upgrades.lowest_upgrade == "CarrotLevel"
+			and Upgrades.pumpkin_unlocked()
+			and Upgrades.pumpkin_cost() > num_items(Items.Carrot)
+			and Upgrades.carrot_plant_cost() * 20 > num_items(Items.Hay)
+		):
+			Crops.tree_only()	
+			if Upgrades.carrot_cost() < num_items(Items.Wood):
+				print("Unlocking Carrot Upgrade")
+				unlock(Unlocks.Carrots)
+			if not hat_already_worn:
+				HatActions.wear_hat(11)
+				hat_already_worn = True		
 
-	elif (
-		Upgrades.grass_cost() > num_items(Items.Wood)
-	):
-		Crops.tree_only()
-		if Upgrades.grass_cost() < num_items(Items.Wood):
-			print("Unlocking Grass Upgrade")
-			unlock(Unlocks.Grass)
+		elif (
+				Upgrades.lowest_upgrade == "TreeLevel"
+				and Upgrades.grass_cost() > num_items(Items.Wood)
+				and Upgrades.tree_unlocked() 
+				and Upgrades.tree_cost() > num_items(Items.Hay)
+			):
+			Crops.grass()
+			if Upgrades.tree_cost() < num_items(Items.Hay):
+				print("Unlocking Tree Upgrade")
+				unlock(Unlocks.Trees)
+			if not hat_already_worn:
+				HatActions.wear_hat(11)
+				hat_already_worn = True
+			if HatActions.hat_type_worn == 11:
+				#print("Hat Already On!")
+				pass	
 
 	else:		
 		if TileSelection.is_even(get_pos_x()):

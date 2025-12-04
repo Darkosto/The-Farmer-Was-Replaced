@@ -65,13 +65,28 @@ def carrot_plant_cost():
 		return cost_dict[item]
 
 #############################################
-# Upgrade Priorities
-# 1 Grass
-# 2 Carrots
-# 3 Trees 
-# 4 Pumpkins
+### Upgrade Priority System
 
-# Contents
+available_upgrade_list = {
+	"GrassLevel": grass_level(), 
+	"PumpkinLevel": pumpkin_level(), 
+	"CarrotLevel": carrot_level(),
+	"TreeLevel": tree_level()
+}
+
+lowest_value = min([
+	available_upgrade_list["GrassLevel"],
+	available_upgrade_list["PumpkinLevel"],
+	available_upgrade_list["CarrotLevel"],
+	available_upgrade_list["TreeLevel"]
+])
+
+for key in available_upgrade_list:
+	if available_upgrade_list[key] == lowest_value:
+		lowest_upgrade = key
+		break
+
+# Upgrades List
 # Auto_Unlock
 # Benchmark
 # Cactus

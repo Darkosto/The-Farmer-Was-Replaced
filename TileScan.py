@@ -1,5 +1,4 @@
 import TileSelection
-#import Crops
 
 def sunflower_tilescan():
 	directions = [North, South, East, West]
@@ -14,7 +13,7 @@ def sunflower_tilescan():
 		while j < len(directions):
 			d = directions[j]
 			if measure(d) == target:
-				move(d)  # move first
+				move(d)
 				if can_harvest():
 					harvest()
 				plant(Entities.Sunflower)
@@ -26,7 +25,6 @@ def sunflower_tilescan():
 		i = i + 1
 
 	if not moved:
-		# nothing found, work on current tile
 		if get_entity_type() == Entities.Sunflower:
 			TileSelection.tile_selection(1)
 		else:

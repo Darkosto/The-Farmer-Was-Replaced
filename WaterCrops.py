@@ -1,5 +1,3 @@
-
-
 def water_crops(a = True):
 	if a:
 		if get_water() < 0.76:

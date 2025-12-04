@@ -153,7 +153,10 @@ def tree_only():
 		tree()		
 										
 def sunflower_and_tree():
-	if 	random() <= 0.4:
-		sunflower()
-	if random() >= 0.41:
-		tree()
+	tree()
+	sunflower()
+	sunflower()
+	#if 	random() <= 0.61:
+	#	sunflower()
+	#if random() >= 0.6:
+	#	tree()

@@ -6,8 +6,17 @@ import TileScan
 import HatActions
 
 hat_already_worn = False 
+power_level = False
 
 while True:
+# Flags	
+	if not power_level and num_items(Items.Power) < 5000:
+		power_level = False
+
+	if power_level and num_items(Items.Power) > 10000:
+		power_level = True
+
+
 
 	if (
 		Upgrades.maze_unlocked()
@@ -20,8 +29,7 @@ while True:
 
 	elif (
 		Upgrades.sunflower_unlocked()
-		and num_items(Items.Power) > 4900
-		and num_items(Items.Power) < 5000
+		and power_level == False
 	):
 		Crops.sunflower_and_tree()
 		if not hat_already_worn:

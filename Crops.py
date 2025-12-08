@@ -41,27 +41,6 @@ def carrot():
 			till()
 			plant(Entities.Carrot)
 			TileSelection.tile_selection(1)			
-				
-def sunflower():
-	if get_entity_type() == Entities.Sunflower:
-		if can_harvest() and measure() > 5:
-			harvest()
-			plant(Entities.Sunflower)
-			WaterCrops.water_crops(1)
-			TileSelection.tile_selection(1)
-		else:
-			use_item(Items.Water) 
-			TileSelection.tile_selection(1)
-	else:
-		if get_ground_type() == Grounds.Soil:
-			harvest()
-			plant(Entities.Sunflower)
-			TileSelection.tile_selection(1)
-		else:
-			harvest()
-			till()
-			plant(Entities.Sunflower)
-			TileSelection.tile_selection(1)		
 					
 def grass():
 	if get_entity_type() == Entities.Grass:
@@ -151,7 +130,51 @@ def tree_only():
 	else:
 		grass()
 		tree()		
-										
+
+def carrot_drone_test():
+	if get_entity_type() == Entities.Carrot:
+		if can_harvest():
+			move(East)
+			harvest()
+			plant(Entities.Carrot)
+			WaterCrops.water_crops(1)
+			TileSelection.tile_selection(1)							
+		else:
+			use_item(Items.Water) 
+			TileSelection.tile_selection(1)
+	else:
+		if get_ground_type() == Grounds.Soil:
+			harvest()
+			plant(Entities.Carrot)
+		else:
+			harvest()
+			till()
+			plant(Entities.Carrot)
+			TileSelection.tile_selection(1)			
+
+#############################################
+
+def sunflower():
+	if get_entity_type() == Entities.Sunflower:
+		if can_harvest() and measure() > 5:
+			harvest()
+			plant(Entities.Sunflower)
+			WaterCrops.water_crops(1)
+			TileSelection.tile_selection(1)
+		else:
+			use_item(Items.Water) 
+			TileSelection.tile_selection(1)
+	else:
+		if get_ground_type() == Grounds.Soil:
+			harvest()
+			plant(Entities.Sunflower)
+			TileSelection.tile_selection(1)
+		else:
+			harvest()
+			till()
+			plant(Entities.Sunflower)
+			TileSelection.tile_selection(1)		
+
 def sunflower_and_tree():
 	tree()
 	sunflower()
@@ -160,3 +183,21 @@ def sunflower_and_tree():
 	#	sunflower()
 	#if random() >= 0.6:
 	#	tree()
+
+
+def sunflower_farm():
+	if get_entity_type() == Entities.Sunflower:
+		if  measure() <= 7:
+			harvest()	
+		else:
+			TileSelection.tile_selection(1)
+	else:
+		if get_ground_type() == Grounds.Soil:
+			harvest()
+			plant(Entities.Sunflower)
+			TileSelection.tile_selection(1)
+		else:
+			harvest()
+			till()
+			plant(Entities.Sunflower)
+			TileSelection.tile_selection(1)		

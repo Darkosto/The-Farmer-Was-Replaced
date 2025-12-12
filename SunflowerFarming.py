@@ -1,34 +1,53 @@
-import Upgrades
-import Crops
-import UnlocksData
-import HatActions
 import TileSelection
-import TileScan
 import WaterCrops
 
-world_size = get_world_size()
-total_tiles = world_size * world_size
-scanned_tiles = 0
+def run_sunflower_farming():
+	world_size = get_world_size()
+	total_tiles = world_size * world_size
+	tiles_with_petal_7 = 0
+	started_at_origin = 0
 
-# Move to origin before starting scan
-while get_pos_x() != 0:
-	move(West)
-while get_pos_y() != 0:
-	move(North)
+	def only_origin_over_7():
+		for y in range(world_size):
+			for x in range(world_size):
+				if x == 0 and y == 0:
+					continue  # skip origin
+				TileSelection.tile_selection()  # move to next tile
+				if get_entity_type() == Entities.Sunflower and measure() > 7:
+					return False
+		return True
 
-# Main loop
-while True:
-	# Scan the world row by row
-	for y in range(world_size):
-		for x in range(world_size):
-			scanned_tiles += 1
+	while True:
+		if started_at_origin == 0:
+			if get_pos_x() == 0 and get_pos_y() == 0:
+				started_at_origin = 1
+				tiles_with_petal_7 = 0
+			else:
+				TileSelection.tile_selection()
+			continue
 
-			# Handle current tile
+		if started_at_origin == 1:
+
+			if get_pos_x() == 0 and get_pos_y() == 0:
+				tiles_with_petal_7 = 0
+
+			# Check current tile
 			if get_entity_type() == Entities.Sunflower:
 				p = measure()
-				if p != 7:  # Only harvest if not level 7
-					harvest()
-					plant(Entities.Sunflower)
+				if p != 7:
+					if get_ground_type() == Grounds.Soil:
+						harvest()
+						plant(Entities.Sunflower)
+						TileSelection.tile_selection()
+					else:
+						harvest()
+						till()
+						plant(Entities.Sunflower)
+						TileSelection.tile_selection()
+				else:
+					tiles_with_petal_7 += 1
+					quick_print(tiles_with_petal_7)
+					TileSelection.tile_selection()
 			else:
 				if get_ground_type() == Grounds.Soil:
 					harvest()
@@ -38,30 +57,24 @@ while True:
 					till()
 					plant(Entities.Sunflower)
 
-			# Move East unless at right edge
-			if x < world_size - 1:
-				move(East)
+			if only_origin_over_7():
+				tiles_with_petal_7 = total_tiles
 
-		# Move South to next row, return to west edge
-		if y < world_size - 1:
-			while get_pos_x() != 0:
-				move(West)
-			move(South)
+			if tiles_with_petal_7 == total_tiles:
+				started_at_origin = 2
+			continue
 
-	# After scanning all tiles, move to origin if all are level 7
-	if scanned_tiles >= total_tiles:
-		if not TileScan.at_origin:
-			TileScan.sunflower_cheese()  # Moves toward origin
-
-		if TileScan.at_origin:
-			if can_harvest():
-				use_item(Items.Fertilizer)
-				harvest()
-				plant(Entities.Sunflower)
-				#WaterCrops.water_crops()
-				use_item(Items.Fertilizer)
+		if started_at_origin == 2:
+			if get_pos_x() == 0 and get_pos_y() == 0:
+				if get_ground_type() == Grounds.Soil:
+					if can_harvest():
+						harvest()
+						plant(Entities.Sunflower)
+					else:
+						WaterCrops.fertilize_sunflowers()
+				else:
+					harvest()
+					till()
+					plant(Entities.Sunflower)
 			else:
-				use_item(Items.Fertilizer)
-
-		# Reset scanned_tiles for next full scan
-		scanned_tiles = 0
+				TileSelection.tile_selection()

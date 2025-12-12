@@ -1,13 +1,12 @@
 import TileSelection
 import WaterCrops
 
-
 def pumpkin():
 	if get_entity_type() == Entities.Pumpkin:
 		if can_harvest():
 			harvest()
 			plant(Entities.Pumpkin)
-			WaterCrops.water_crops(1)
+			WaterCrops.water_crops()
 			TileSelection.tile_selection(1)							
 		else:
 			use_item(Items.Water) 
@@ -27,7 +26,7 @@ def carrot():
 		if can_harvest():
 			harvest()
 			plant(Entities.Carrot)
-			WaterCrops.water_crops(1)
+			WaterCrops.water_crops()
 			TileSelection.tile_selection(1)							
 		else:
 			use_item(Items.Water) 
@@ -46,7 +45,7 @@ def grass():
 	if get_entity_type() == Entities.Grass:
 		if can_harvest():
 			harvest()
-			WaterCrops.water_crops(1)
+			WaterCrops.water_crops()
 			TileSelection.tile_selection(1)							
 		else:
 			use_item(Items.Water) 
@@ -70,7 +69,7 @@ def tree():
 			WaterCrops.fertilize_crops()
 			TileSelection.tile_selection(1)							
 		else:
-			WaterCrops.water_crops(1)
+			WaterCrops.water_crops()
 			TileSelection.tile_selection(1)
 	else:
 		if get_ground_type() == Grounds.Grassland:
@@ -91,7 +90,7 @@ def bush():
 			#use_item(Items.Weird_Substance)
 			TileSelection.tile_selection(1)							
 		else:
-			WaterCrops.water_crops(1)
+			WaterCrops.water_crops()
 			TileSelection.tile_selection(1)
 	else:
 		if get_ground_type() == Grounds.Grassland:
@@ -137,7 +136,7 @@ def carrot_drone_test():
 			move(East)
 			harvest()
 			plant(Entities.Carrot)
-			WaterCrops.water_crops(1)
+			WaterCrops.water_crops()
 			TileSelection.tile_selection(1)							
 		else:
 			use_item(Items.Water) 
@@ -159,7 +158,7 @@ def sunflower():
 		if can_harvest() and measure() > 5:
 			harvest()
 			plant(Entities.Sunflower)
-			WaterCrops.water_crops(1)
+			WaterCrops.water_crops()
 			TileSelection.tile_selection(1)
 		else:
 			use_item(Items.Water) 

@@ -1,7 +1,5 @@
 import TileSelection
 
-
-
 def sunflower_tilescan():
 	directions = [North, South, East, West]
 	priorities = [15, 14, 13, 12, 11, 10]

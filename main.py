@@ -14,7 +14,7 @@ while True:
 		power_level = True
 
 	# Maze priority
-	if Upgrades.maze_unlocked() and num_items(Items.Gold) < 500:
+	if Upgrades.maze_unlocked() and num_items(Items.Gold) < 5000:
 		Crops.maze()
 		if not hat_already_worn:
 			HatActions.wear_hat(5)
@@ -22,12 +22,14 @@ while True:
 
 	# Sunflower priority
 	elif (Upgrades.sunflower_unlocked() and
-		  num_items(Items.Fertilizer) > 1000 and
-		  not power_level):
-		SunflowerFarming.run_sunflower_farming()
+		num_items(Items.Fertilizer) > 1000 and
+		not power_level):
+		done = SunflowerFarming.run_sunflower_farming()
 		if not hat_already_worn:
 			HatActions.wear_hat(12)
 			hat_already_worn = True
+
+
 
 	# Lowest upgrade
 	else:
@@ -70,13 +72,28 @@ while True:
 
 		elif (Upgrades.lowest_upgrade == "CactusLevel" and
 			  Upgrades.pumpkin_cost() > num_items(Items.Pumpkin) and
-			  Upgrades.pumpkin_unlocked() and
-			  Upgrades.pumpkin_cost() > num_items(Items.Pumpkin)):
+			  Upgrades.pumpkin_unlocked()):
 			Crops.pumpkin()
 			Upgrades.cactus_upgrade()
-			if not hat_already_worn and Upgrades.cactus_unlocked():
-				HatActions.wear_hat(2)
+			#if not hat_already_worn and Upgrades.cactus_unlocked():
+			#	HatActions.wear_hat(2)
+			#	hat_already_worn = True
+
+		elif (Upgrades.lowest_upgrade == "FertilizerLevel" and
+			  Upgrades.fertilizer_cost() > num_items(Items.Wood) and
+			  Upgrades.fertilizer_unlocked()):
+			Crops.sunflower_and_tree()
+			Upgrades.fertilizer_upgrade()
+			if not hat_already_worn:
+				HatActions.wear_hat(11)
 				hat_already_worn = True
+
+		elif (Upgrades.lowest_upgrade == "FertilizerLevel" and
+			  Upgrades.fertilizer_cost() < num_items(Items.Wood)):
+			Upgrades.fertilizer_upgrade()
+
+
+
 		else:
 			if TileSelection.is_even(get_pos_x()):
 				if get_pos_y() in {0, 8, 12, 14}:
